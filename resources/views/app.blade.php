@@ -47,6 +47,7 @@
 
   {{-- mengambil fungsi dengan js dari views->resources->js.blade.php --}}
   @include('resources.js')
+  @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@11"])
 
 </body>
 

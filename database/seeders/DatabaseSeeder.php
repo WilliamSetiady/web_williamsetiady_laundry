@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        //fungsi call ini untuk menjalankan seeder apa yang ada didalamnya sehingga dapat memasukkan data kedalam database masing-masing
+        //untuk salah satu contoh dibawah, memanggil LevelsSeeder agar data didalamnya bisa dimasukkan dengan hanya melakukan php artisan db:seed
         $this->call(LevelsSeeder::class);
         $this->call(UsersSeeder::class);
     }

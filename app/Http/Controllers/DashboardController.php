@@ -11,6 +11,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // mengembalikan halaman yaitu dari folder, dashboard->index.blade.php
         return view('dashboard.index');
     }
 

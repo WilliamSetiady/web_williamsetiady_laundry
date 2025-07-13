@@ -1,5 +1,5 @@
-@extends('app');
-@section('main');
+@extends('app')
+@section('main')
 <section class="section">
 
       <div class="row">

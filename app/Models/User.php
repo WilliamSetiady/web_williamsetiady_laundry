@@ -18,10 +18,17 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'id_level',
         'name',
         'email',
         'password',
+
     ];
+
+    public function level()
+    {
+        return $this->belongsTo(Levels::class, 'id_level', 'id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
