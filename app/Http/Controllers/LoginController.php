@@ -23,15 +23,21 @@ class LoginController extends Controller
         // melakukan validasi input dari parameter $request.
         // fungsi dari $request->validate ini untuk validasi data input, apakah sudah sesuai dengan aturan yang dibuat
         $request->validate([
-            'email' => 'required|email',
+            // email memiliki ketentuan, yaitu 
+            // required=harus diisi, 
+            // email=harus berupa email, dan 
+             // unique:users, email = data harus unik antar satu sama lain, data disini diambil dari table users dan kolom email
+            'email' => 'required|email|unique:users,email',
+            // password memiliki ketentuan, yaitu
+            // required=password harus diisi
+            // min:8=harus berisi minimal 8 karakter
             'password' => 'required|min:8'
         ]);
 
         $credentials = $request->only('email', 'password');
         // Auth::attempt berfungsi untuk melakukan proses login otomatis berdasarkan data dari $credentials
         // jika berhasil, data seperti email dan password akan disimpan di session dan sudah di autentifikasi
-        if(Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             // session()->regenerate() berfungsi untuk keamanan, karena membuang sesi ID lama dan membuat sesi ID baru. 
             // dilakukan untuk mencegah orang lain memanfaatkan session ID lama
             $request->session()->regenerate();
