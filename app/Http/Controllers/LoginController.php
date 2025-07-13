@@ -27,7 +27,7 @@ class LoginController extends Controller
             // required=harus diisi, 
             // email=harus berupa email, dan 
              // unique:users, email = data harus unik antar satu sama lain, data disini diambil dari table users dan kolom email
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             // password memiliki ketentuan, yaitu
             // required=password harus diisi
             // min:8=harus berisi minimal 8 karakter
