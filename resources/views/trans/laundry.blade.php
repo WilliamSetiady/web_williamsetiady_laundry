@@ -16,7 +16,7 @@
         </div>
 
         <!-- Statistics -->
-        <div class="stats-grid">
+        {{-- <div class="stats-grid">
             <div class="stat-card">
                 <h3 id="totalTransactions">0</h3>
                 <p>Total Transaction</p>
@@ -33,7 +33,7 @@
                 <h3 id="completedOrders">0</h3>
                 <p>Order Finished</p>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Main Content -->
         <div class="main-content">
@@ -131,7 +131,7 @@
             </div>
 
             <!-- Right Panel: Transaction History -->
-            <div class="card">
+            {{-- <div class="card">
                 <h2>📊 Riwayat Transaksi</h2>
                 <div class="transaction-list" id="transactionHistory">
 
@@ -140,7 +140,7 @@
                 <button class="btn btn-warning" onclick="showAllTransactions()" style="width: 100%; margin-top: 15px;">
                     📋 Lihat Semua Transaksi
                 </button>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Action Buttons -->
