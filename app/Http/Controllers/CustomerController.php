@@ -76,7 +76,6 @@ class CustomerController extends Controller
     {
         // variable $level, mengambil dari model level untuk: findOrFail = mencari atau akan menghasilkan 404notfound/tidak ditemukan bila tidak ditemukan id nya
         $customer = Customers::findOrFail($id);
-
         $customer->name = $request->name;
         $customer->phone = $request->phone;
         $customer->address = $request->address;

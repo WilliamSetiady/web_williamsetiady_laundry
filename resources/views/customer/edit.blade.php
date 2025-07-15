@@ -17,12 +17,12 @@
                         <input value="{{$customers->name}}" type="text" class="form-control" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="" class="form-label">Customer Name</label>
+                        <label for="" class="form-label">Phone</label>
                         <input value="{{$customers->phone}}" type="text" class="form-control" name="phone" required>
                     </div>
                     <div class="mb-3">
-                        <label for="" class="form-label">Customer Name</label>
-                        <input value="{{$customers->address}}" type="text" class="form-control" name="name" required>
+                        <label for="" class="form-label">Address</label>
+                        <input value="{{$customers->address}}" type="text" class="form-control" name="address" required>
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-primary" type="submit">Simpan</button>

@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TransOrderController;
 use App\Http\Controllers\UserController;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     route::resource('customer', CustomerController::class);
     route::resource('service', ServiceController::class);
     route::resource('trans', TransOrderController::class);
+    route::resource('report', ReportController::class);
     Route::get('print_struk/{id}', [TransOrderController::class, 'printStruk'])->name('print_struk');
     Route::get('transDetail/{id}', [TransOrderController::class, 'transDetail'])->name('trans_detail');
 });

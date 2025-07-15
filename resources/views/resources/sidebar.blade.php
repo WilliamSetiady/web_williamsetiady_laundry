@@ -48,6 +48,11 @@
               <i class="bi bi-circle"></i><span>Trans Order</span>
             </a>
           </li>
+          <li>
+            <a href="{{route( 'report.index')}}">
+              <i class="bi bi-circle"></i><span>Report</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
 
