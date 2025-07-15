@@ -66,7 +66,7 @@
                         <label>Pilih Layanan</label>
                         <div class="services-grid">
                             @foreach ($services as $service)
-                            <button type="button" class="service-card" onclick="addService('{{ $service->service_name }}', {{ $service->price }})">
+                            <button type="button" class="service-card" onclick="addService('{{ $service->id }}', {{ $service->price }})">
                                 <h3>{{ $service->service_name }}</h3>
                                 <div class="price">Rp {{ $service->price }}/kg</div>
                             </button>
@@ -80,15 +80,13 @@
                             <input type="number" id="serviceWeight" step="0.1" min="0.1" required>
                         </div>
                         <div class="form-group">
-                            <label for="serviceType">Jenis Layanan</label>
+                            <label>Jenis Layanan</label>
                             <select id="serviceType" required>
                                 <option value="">Pilih Layanan</option>
-                                <option value="Cuci Kering">Cuci Kering</option>
-                                <option value="Cuci Setrika">Cuci Setrika</option>
-                                <option value="Setrika Saja">Setrika Saja</option>
-                                <option value="Dry Clean">Dry Clean</option>
-                                <option value="Cuci Sepatu">Cuci Sepatu</option>
-                                <option value="Cuci Karpet">Cuci Karpet</option>
+                                @foreach ($services as $service)
+                                <option data-price="{{ $service->price }}" value="{{ $service->id }}">{{ $service->service_name }}</option>
+                                @endforeach
+
                             </select>
                         </div>
                     </div>
@@ -105,15 +103,15 @@
 
                 <!-- Cart -->
                 <div id="cartSection" style="display: none;">
-                    <h3>📋 Keranjang Belanja</h3>
+                    <h3>📋 Cart</h3>
                     <table class="cart-table">
                         <thead>
                             <tr>
-                                <th>Layanan</th>
+                                <th>Services</th>
                                 <th>Qty</th>
-                                <th>Harga</th>
+                                <th>Price</th>
                                 <th>Subtotal</th>
-                                <th>Aksi</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="cartItems">
@@ -212,17 +210,6 @@
                 return;
             }
 
-            const prices = {
-                'Cuci Kering': 5000,
-                'Cuci Setrika': 7000,
-                'Setrika Saja': 3000,
-                'Dry Clean': 15000,
-                'Cuci Sepatu': 25000,
-                'Cuci Karpet': 20000
-            };
-
-            const price = prices[serviceType];
-            const subtotal = price * weight;
 
             const item = {
                 id: Date.now(),
@@ -257,25 +244,9 @@
             let html = '';
             let total = 0;
 
-            cart.forEach(item => {
-                html += `
-                    <tr>
-                        <td>${item.service}</td>
-                        <td>${item.weight} ${item.service.includes('Sepatu') ? 'pasang' : item.service.includes('Karpet') ? 'm²' : 'kg'}</td>
-                        <td>Rp ${item.price.toLocaleString()}</td>
-                        <td>Rp ${item.subtotal.toLocaleString()}</td>
-                        <td>
-                            <button class="btn btn-danger" onclick="removeFromCart(${item.id})" style="padding: 5px 10px; font-size: 12px;">
-                                🗑️
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                total += item.subtotal;
-            });
 
-            cartItems.innerHTML = html;
-            totalAmount.textContent = `Rp ${total.toLocaleString()}`;
+
+
         }
 
         function removeFromCart(itemId) {
@@ -348,7 +319,7 @@
                         <strong>Detail Pesanan:</strong><br>
                         ${transaction.items.map(item => `
                             <div class="receipt-item">
-                                <span>${item.service} (${item.weight} ${item.service.includes('Sepatu') ? 'pasang' : item.service.includes('Karpet') ? 'm²' : 'kg'})</span>
+                                <span>${item.service} (${item.weight} : 'kg'})</span>
                                 <span>Rp ${item.subtotal.toLocaleString()}</span>
                             </div>
                         `).join('')}
@@ -389,7 +360,7 @@
                 <div class="transaction-item">
                     <h4>${transaction.id} - ${transaction.customer.name}</h4>
                     <p>📞 ${transaction.customer.phone}</p>
-                    <p>🛍️ ${transaction.items.map(item => `${item.service} - ${item.weight}${item.service.includes('Sepatu') ? 'pasang' : item.service.includes('Karpet') ? 'm²' : 'kg'}`).join(', ')}</p>
+                    <p>🛍️ ${transaction.items.map(item => `${item.service} - ${item.weight} : 'kg'}`).join(', ')}</p>
                     <p>💰 Rp ${transaction.total.toLocaleString()}</p>
                     <p>📅 ${new Date(transaction.date).toLocaleString('id-ID')}</p>
                     <span class="status-badge status-${transaction.status}">${getStatusText(transaction.status)}</span>
@@ -429,7 +400,7 @@
                         <div class="transaction-item">
                             <h4>${transaction.id} - ${transaction.customer.name}</h4>
                             <p>📞 ${transaction.customer.phone}</p>
-                            <p>🛍️ ${transaction.items.map(item => `${item.service} - ${item.weight}${item.service.includes('Sepatu') ? 'pasang' : item.service.includes('Karpet') ? 'm²' : 'kg'}`).join(', ')}</p>
+                            <p>🛍️ ${transaction.items.map(item => `${item.service} - ${item.weight} : 'kg'}`).join(', ')}</p>
                             <p>💰 Rp ${transaction.total.toLocaleString()}</p>
                             <p>📅 ${new Date(transaction.date).toLocaleString('id-ID')}</p>
                             <span class="status-badge status-${transaction.status}">${getStatusText(transaction.status)}</span>
@@ -686,12 +657,10 @@
             }
 
             const prices = {
-                'Cuci Kering': 5000,
-                'Cuci Setrika': 7000,
-                'Setrika Saja': 3000,
-                'Dry Clean': 15000,
-                'Cuci Sepatu': 25000,
-                'Cuci Karpet': 20000
+                @foreach ($services as $service)
+                    '{{ $service->id }}': '{{ $service->price }}',
+                @endforeach
+
             };
 
             const price = prices[serviceType];
@@ -730,10 +699,10 @@
 
             let html = '';
             let total = 0;
-
+            console.log(cart);
             cart.forEach(item => {
-                const unit = item.service.includes('Sepatu') ? 'pasang' :
-                           item.service.includes('Karpet') ? 'm²' : 'kg';
+                // const unit = item.service.includes('Sepatu') ? 'pasang' :
+                //            item.service.includes('Karpet') ? 'm²' : 'kg';
 
                 // Format weight to show decimal properly
                 const formattedWeight = item.weight % 1 === 0 ?
@@ -743,7 +712,7 @@
                 html += `
                     <tr>
                         <td>${item.service}</td>
-                        <td>${formattedWeight} ${unit}</td>
+                        <td>${formattedWeight}</td>
                         <td>Rp ${item.price.toLocaleString()}</td>
                         <td>Rp ${item.subtotal.toLocaleString()}</td>
                         <td>
