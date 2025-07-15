@@ -84,7 +84,7 @@
                             <select id="serviceType" required>
                                 <option value="">Pilih Layanan</option>
                                 @foreach ($services as $service)
-                                <option data-price="{{ $service->price }}" value="{{ $service->id }}">{{ $service->service_name }}</option>
+                                <option data-price="{{ $service->price }}" data-service_name="{{ $service->service_name }}" value="{{ $service->id }}">{{ $service->service_name }}</option>
                                 @endforeach
 
                             </select>
@@ -194,40 +194,39 @@
         let cart = [];
         let transactions = JSON.parse(localStorage.getItem('laundryTransactions')) || [];
         let transactionCounter = transactions.length + 1;
-
         function addService(serviceName, price) {
             document.getElementById('serviceType').value = serviceName;
             document.getElementById('serviceWeight').focus();
         }
 
-        function addToCart() {
-            const serviceType = document.getElementById('serviceType').value;
-            const weight = parseFloat(document.getElementById('serviceWeight').value);
-            const notes = document.getElementById('notes').value;
+        // function addToCart() {
+        //     const serviceType = document.getElementById('serviceType').value;
+        //     const weight = parseFloat(document.getElementById('serviceWeight').value);
+        //     const notes = document.getElementById('notes').value;
 
-            if (!serviceType || !weight || weight <= 0) {
-                alert('Mohon lengkapi semua field yang diperlukan!');
-                return;
-            }
+        //     if (!serviceType || !weight || weight <= 0) {
+        //         alert('Mohon lengkapi semua field yang diperlukan!');
+        //         return;
+        //     }
 
 
-            const item = {
-                id: Date.now(),
-                service: serviceType,
-                weight: weight,
-                price: price,
-                subtotal: subtotal,
-                notes: notes
-            };
+        //     const item = {
+        //         id: Date.now(),
+        //         service: serviceType,
+        //         weight: weight,
+        //         price: price,
+        //         subtotal: subtotal,
+        //         notes: notes
+        //     };
 
-            cart.push(item);
-            updateCartDisplay();
+        //     cart.push(item);
+        //     updateCartDisplay();
 
-            // Clear form
-            document.getElementById('serviceType').value = '';
-            document.getElementById('serviceWeight').value = '';
-            document.getElementById('notes').value = '';
-        }
+        //     // Clear form
+        //     document.getElementById('serviceType').value = '';
+        //     document.getElementById('serviceWeight').value = '';
+        //     document.getElementById('notes').value = '';
+        // }
 
         function updateCartDisplay() {
             const cartItems = document.getElementById('cartItems');
@@ -646,7 +645,11 @@
 
         // Update addToCart function to handle decimal with comma
         function addToCart() {
-            const serviceType = document.getElementById('serviceType').value;
+            const selectService = document.getElementById('serviceType');
+            const optionService = selectService.options[selectService.selectedIndex];
+            const serviceName = optionService.getAttribute('data-service_name');
+            const priceService = parseInt(optionService.dataset.price);
+            const nameService = optionService.textContent;
             const weightValue = document.getElementById('serviceWeight').value;
             const weight = parseDecimal(weightValue);
             const notes = document.getElementById('notes').value;
@@ -664,13 +667,13 @@
             };
 
             const price = prices[serviceType];
-            const subtotal = price * weight;
+            const subtotal = priceService * weight;
 
             const item = {
                 id: Date.now(),
-                service: serviceType,
+                service: serviceName,
                 weight: weight,
-                price: price,
+                price: priceService,
                 subtotal: subtotal,
                 notes: notes
             };
