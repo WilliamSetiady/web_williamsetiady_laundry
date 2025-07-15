@@ -22,4 +22,5 @@ Route::middleware('auth')->group(function () {
     route::resource('service', ServiceController::class);
     route::resource('trans', TransOrderController::class);
     Route::get('print_struk/{id}', [TransOrderController::class, 'printStruk'])->name('print_struk');
+    Route::get('transDetail/{id}', [TransOrderController::class, 'transDetail'])->name('trans_detail');
 });

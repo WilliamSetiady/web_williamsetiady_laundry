@@ -122,8 +122,11 @@ class TransOrderController extends Controller
         // return ($details);
         return view('trans.print_struk', compact('details'));
     }
-    public function transStore(Request $request)
+    public function transDetail(string $id)
     {
-        return $request;
+        $title = "Transaction Detail";
+        $details = TransOrders::with('customer', 'details.service')->where('id', $id)->first();
+
+        return view('trans.detail', compact('title', 'details'));
     }
 }
