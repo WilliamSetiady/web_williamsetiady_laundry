@@ -107,6 +107,47 @@
     </div>
         </div>
 
+
+    
+        <div class="receipt">
+                    <div class="receipt-header">
+                        <h2>🧺 LAUNDRY RECEIPT</h2>
+                        <p>ID: ${transaction.id}</p>
+                        <p>Tanggal: ${new Date(transaction.date).toLocaleString('id-ID')}</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <strong>Pelanggan:</strong><br>
+                       {{$details->customer->name}}<br>
+                        {{$details->customer->phone}}<br>
+                        {{$details->customer->address}}
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <strong>Detail Pesanan:</strong><br>
+                        
+                            <div class="receipt-item">
+                                @foreach ($details->details as $detail)
+                                <span>{{$detail->service->service_name}} {{$detail->qty}} : 'kg'})</span>
+                                <span>Rp {{number_format($detail->subtotal)}}</span>
+                                @endforeach
+                            </div>
+
+                    </div>
+
+                    <div class="receipt-total">
+                        <div class="receipt-item">
+                            <span>TOTAL:</span>
+                            <span>Rp {{$details->total}}</span>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p>Terima kasih atas kepercayaan Anda!</p>
+                        <p>Barang akan siap dalam 1-2 hari kerja</p>
+                    </div>
+                </div>
+
     <script>
         window.print();
     </script>

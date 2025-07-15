@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('order_code', 30);
             $table->date('order_end_date');
             $table->tinyInteger('order_status')->default(0)->nullable();
-            $table->integer('order_pay');
-            $table->integer('order_change');
+            $table->integer('order_pay')->nullable();
+            $table->integer('order_change')->nullable();
             $table->integer('total');
             $table->text('note')->nullable();
             // $table->foreign('id_customer')->references('id')->on('customers')->onDelete('cascade');

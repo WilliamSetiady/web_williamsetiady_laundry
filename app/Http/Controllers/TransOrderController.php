@@ -95,7 +95,12 @@ class TransOrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $order = TransOrders::findOrFail($id);
+        $order->order_pay = $request->order_pay;
+        $order->order_change = $request->order_change;
+        $order->order_status = 1;
+        $order->save();
+        return redirect()->to('trans')->with('success', 'Data updated successfully');
     }
 
     /**
@@ -111,7 +116,7 @@ class TransOrderController extends Controller
 
     public function printStruk(string $id)
     {
-        $details = TransOrders::with('customer', 'details.service')->where('id', $id)->first();
+        $details = TransOrders::with('customer', 'details')->where('id', $id)->first();
         // $services = TransDetails::with('services')->where('id_service', $id)->get();
         // dd($details);
         // return ($details);
