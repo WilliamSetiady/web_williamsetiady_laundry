@@ -260,7 +260,7 @@
         }
 
         function processTransaction() {
-            const customerName = document.getElementById('customerName').value;
+            const customerName = document.getElementById('customerName').options[document.getElementById('customerName').selectedIndex].text;
             const customerPhone = document.getElementById('customerPhone').value;
             const customerAddress = document.getElementById('customerAddress').value;
 
@@ -654,7 +654,7 @@
             const weight = parseDecimal(weightValue);
             const notes = document.getElementById('notes').value;
 
-            if (!serviceType || !weightValue || weight <= 0) {
+            if (!selectService || !weightValue || weight <= 0) {
                 alert('Mohon lengkapi semua field yang diperlukan!');
                 return;
             }
