@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_customer')->nullable(); // Add the column
 
             // If you want to create a foreign key relationship:
-            $table->foreign('id_customer')->references('id')->on('trans_details')->onDelete('cascade');
+            $table->foreign('id_customer')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 
