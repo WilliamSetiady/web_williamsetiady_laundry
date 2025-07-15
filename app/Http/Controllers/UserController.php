@@ -84,18 +84,18 @@ class UserController extends Controller
         // variable $user, mengambil dari model User untuk: findOrFail = mencari atau akan menghasilkan 404notfound/tidak ditemukan bila tidak ditemukan id nya
         $user = User::findOrFail($id);
         //$user->name berfungsi untuk menyimpan data user tersebut ke properti name
-        //$request->name mengambil data name dari form input post di halaman edit.blade.php 
+        //$request->name mengambil data name dari form input post di halaman edit.blade.php
         $user->name = $request->name;
         //$user->email berfungsi untuk menyimpan data user tersebut ke properti email
-        //$request->email mengambil data email dari form input post di halaman edit.blade.php 
+        //$request->email mengambil data email dari form input post di halaman edit.blade.php
         $user->email = $request->email;
         // if disini berfungsi untuk mengecek apakah dilakukan input data password baru di edit.blade.php
         if ($request->password) {
             //$user->password berfungsi untuk menyimpan data user tersebut ke properti password
-            //$request->password mengambil data password dari form input post di halaman edit.blade.php 
+            //$request->password mengambil data password dari form input post di halaman edit.blade.php
             $user->password = $request->password;
         }
-        //menyimpan data dari variable user diatas yang sudah dimasukkan 
+        //menyimpan data dari variable user diatas yang sudah dimasukkan
         $user->save();
         // mengambalikan tampilan pada folder user yaitu file edit.blade.php
         return redirect()->to('user')->with('success', 'Data changed successfuly');
