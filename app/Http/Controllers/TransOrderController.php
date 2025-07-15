@@ -49,6 +49,8 @@ class TransOrderController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $transOrder = TransOrders::create([
             'id_customer' => $request->id_customer,
             'order_code' => $request->order_code,
@@ -115,5 +117,9 @@ class TransOrderController extends Controller
         // dd($details);
         // return ($details);
         return view('trans.print_struk', compact('details'));
+    }
+    public function transStore(Request $request)
+    {
+        return $request;
     }
 }
