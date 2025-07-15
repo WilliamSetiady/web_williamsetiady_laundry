@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('trans_orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_customer');
+            // $table->unsignedBigInteger('id_customer');
             $table->string('order_code', 30);
             $table->date('order_end_date');
             $table->tinyInteger('order_status')->default(0)->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('order_change');
             $table->integer('total');
             $table->text('note')->nullable();
-            $table->foreign('id_customer')->references('id')->on('customers')->onDelete('cascade');
+            // $table->foreign('id_customer')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

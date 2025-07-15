@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         //untuk salah satu contoh dibawah, memanggil LevelsSeeder agar data didalamnya bisa dimasukkan dengan hanya melakukan php artisan db:seed
         $this->call(LevelsSeeder::class);
         $this->call(UsersSeeder::class);
+        $this->call(ServicesSeeder::class);
     }
 }

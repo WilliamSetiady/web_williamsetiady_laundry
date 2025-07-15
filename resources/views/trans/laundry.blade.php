@@ -241,9 +241,11 @@
         }
 
         function clearCart() {
-            cart = [];
-            updateCartDisplay();
-            document.getElementById('transactionForm').reset();
+           localStorage.removeItem('laundryTransactions'); // 🧼 Clear history
+    transactions = []; // 🗑️ Reset in-memory array
+    updateTransactionHistory(); // 🔄 Refresh display
+    updateStats(); // 📊 Refresh stats if needed
+    alert('Riwayat transaksi berhasil dibersihkan!');
         }
 
         function processTransaction() {
@@ -261,6 +263,7 @@
 
             const transaction = {
                 id: `TRX-${transactionCounter.toString().padStart(3, '0')}`,
+                id_customer: customer,
                 customer: {
                     name: customerName,
                     phone: customerPhone,
@@ -275,18 +278,25 @@
             transactions.push(transaction);
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             fetch('/trans', {
-                method:"POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": token
-                },
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "X-CSRF-TOKEN": token
+  },
+  body: JSON.stringify(transaction)
+})
+.then(async res => {
+  const text = await res.text();
+  try {
+    const json = JSON.parse(text);
+    console.log(json);
+  } catch (err) {
+    console.error('Server returned HTML instead of JSON:', text);
+  }
+});
 
-                body: JSON.stringify(transactions),
-            }).then(response => response.json()).then(function(result){
-                console.log(result);
-            }).catch(error =>{
-                console.log(error);
-            })
+
             localStorage.setItem('laundryTransactions', JSON.stringify(transactions));
 
             transactionCounter++;
@@ -295,7 +305,7 @@
             showReceipt(transaction);
 
             // Clear form and cart
-            clearCart();
+            
             updateTransactionHistory();
             updateStats();
         }
@@ -320,7 +330,7 @@
                         <strong>Detail Pesanan:</strong><br>
                         ${transaction.items.map(item => `
                             <div class="receipt-item">
-                                <span>${item.service} (${item.weight} : 'kg'})</span>
+                                <span>${item.service} (${item.qty} : 'kg'})</span>
                                 <span>Rp ${item.subtotal.toLocaleString()}</span>
                             </div>
                         `).join('')}
@@ -649,7 +659,7 @@
         function addToCart() {
             const selectService = document.getElementById('serviceType');
             const optionService = selectService.options[selectService.selectedIndex];
-            const serviceId = optionService.getAttribute('data-service');
+            const serviceId = optionService.getAttribute('data-id');
             const serviceName = optionService.getAttribute('data-service_name');
             const priceService = parseInt(optionService.dataset.price);
             const nameService = optionService.textContent;
@@ -673,9 +683,9 @@
             const subtotal = priceService * weight;
 
             const item = {
-                id: serviceId,
+                id_service: serviceId,
                 service: serviceName,
-                weight: weight,
+                qty: weight,
                 price: priceService,
                 subtotal: subtotal,
                 notes: notes
@@ -712,8 +722,8 @@
 
                 // Format weight to show decimal properly
                 const formattedWeight = item.weight % 1 === 0 ?
-                    item.weight.toString() :
-                    item.weight.toFixed(1).replace('.', ',');
+                    item.qty.toString() :
+                    item.qty.toFixed(1).replace('.', ',');
 
                 html += `
                     <tr>

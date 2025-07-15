@@ -7,17 +7,17 @@
                 <div class="card-body">
                     <h3 class="card-title">{{$title}}</h3>
                     <div class="mb-3" align='right'>
-                        <a href="{{route('trans.create')}}" class="btn btn-primary">Tambah</a>
+                        <a href="{{route('trans.create')}}" class="btn btn-primary">+</a>
                     </div>
                     <table class="table table-bordered">
                         <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>No. Pesanan</th>
-                                    <th>Pelanggan</th>
-                                    <th>Tanggal Selesai</th>
+                                    <th>Number</th>
+                                    <th>Order Code</th>
+                                    <th>Customer</th>
+                                    <th>Order Finish</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                 </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,7 @@
                                 <td>
                                     <a href="{{route('trans.show', $data->id)}}">{{$data->order_code}}</a>
                                 </td>
-                                <td>{{$data->customer->name}}</td>
+                                <td>{{$data->customer->name ?? 'None'}}</td>
                                 <td>{{$data->order_end_date}}</td>
                                 <td>{{$data->status_text}}</td>
                                 <td>

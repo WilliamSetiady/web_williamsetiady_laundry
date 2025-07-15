@@ -53,24 +53,23 @@ class TransOrderController extends Controller
 
         $transOrder = TransOrders::create([
             'id_customer' => $request->id_customer,
-            'order_code' => $request->order_code,
-            'order_end_date' => $request->order_end_date,
+            'order_code' => $request->order_code ?? 'TRX-' . time(),
+            'order_end_date' => $request->order_end_date ?? now()->addDays(2),
             'total' => $request->total,
-            'note' => $request->note
+            'note' => $request->note ?? ''
         ]);
 
-        foreach ($request->id_service as $key => $idService) {
-            $id_trans = $transOrder->id;
+
+        foreach ($request->items as $item) {
             TransDetails::create([
-                'id_trans' => $id_trans,
-                'id_service' => $idService,
-                'qty' => $request->qty[$key],
-                'subtotal' => $request->subtotal[$key]
+                'id_trans' => $transOrder->id,
+                'id_service' => $item['id_service'],
+                'qty' => $item['qty'],
+                'subtotal' => $item['subtotal']
             ]);
         }
-        // TransOrders::create($request->all());
-        return redirect()->to('trans')->with('success', 'Data added successfuly');
     }
+    // TransOrders::create($request->all());
 
     /**
      * Display the specified resource.
