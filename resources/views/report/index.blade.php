@@ -32,6 +32,7 @@
                                     <th>Date</th>
                                     <th>Service</th>
                                     <th>Qty</th>
+                                    <th>Status</th>
                                     <th>Price</th>
                                     <th>Subtotal</th>
                                 </tr>
@@ -39,15 +40,17 @@
                             <tbody>
 
                                 @foreach ($details as $detail)
-
-                                <tr>
-                                    <td>{{ $detail->transOrder->customer->name }}</td>
-                                    <td>{{ $detail->transOrder->created_at }}</td>
-                                    <td>{{ $detail->service->service_name }}</td>
-                                    <td>{{ $detail->qty }}</td>
-                                    <td>{{ $detail->service->price }}</td>
-                                    <td>{{ $detail->subtotal }}</td>
-                                </tr>
+                                @if ($detail->transOrder->order_status == 1)
+                                    <tr>
+                                        <td>{{ $detail->transOrder->customer->name }}</td>
+                                        <td>{{ $detail->transOrder->created_at }}</td>
+                                        <td>{{ $detail->service->service_name }}</td>
+                                        <td>{{ $detail->qty }}</td>
+                                        <td>{{ $detail->transOrder->status_text }}</td>
+                                        <td>{{ $detail->service->price }}</td>
+                                        <td>{{ $detail->subtotal }}</td>
+                                    </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>
