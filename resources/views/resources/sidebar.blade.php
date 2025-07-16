@@ -38,6 +38,13 @@
           </li>
         </ul>
         @endif
+        @if (Auth::user()->id_level == 2)
+        <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route( 'customer.index')}}">
+          <i class="bi bi-grid"></i>
+          <span>Customers</span>
+        </a>
+        @endif
       </li><!-- End Components Nav -->
       <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
