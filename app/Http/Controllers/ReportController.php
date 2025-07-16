@@ -14,14 +14,14 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
-         $title = 'Report';
-        if ($request->date_start && $request->date_end) { 
+        $title = 'Report';
+        if ($request->date_start && $request->date_end) {
             $startDate = $request->date_start;
             $endDate = $request->date_end;
 
             $details = TransDetails::with(['transOrder.customer', 'service'])
                 ->whereDate('order_date', '>=', $startDate)
-                ->whereDate('order_date', '<=', $endDate) // 
+                ->whereDate('order_date', '<=', $endDate) //
                 ->get();
 
             return view('report.index', compact('title', 'details'));

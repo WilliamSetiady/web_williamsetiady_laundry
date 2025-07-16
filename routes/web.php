@@ -23,14 +23,12 @@ Route::middleware(['auth', 'Lead'])->group(function () {
     Route::resource('report', ReportController::class);
 });
 
-Route::middleware(['auth', 'Opt'])->group(function () {
-    Route::resource('trans', TransOrderController::class);
-    Route::get('print_struk/{id}', [TransOrderController::class, 'printStruk'])->name('print_struk');
-    Route::get('transDetail/{id}', [TransOrderController::class, 'transDetail'])->name('trans_detail');
-});
 
 Route::middleware(['auth', 'adopt'])->group(function () {
     Route::resource('customer', CustomerController::class);
+    Route::resource('trans', TransOrderController::class);
+    Route::get('print_struk/{id}', [TransOrderController::class, 'printStruk'])->name('print_struk');
+    Route::get('transDetail/{id}', [TransOrderController::class, 'transDetail'])->name('trans_detail');
 });
 
 Route::middleware(['auth', 'Adm'])->group(function () {

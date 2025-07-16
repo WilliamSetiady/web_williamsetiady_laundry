@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customers;
 use Illuminate\Http\Request;
+use App\Models\TypeOfServices;
 
 class DashboardController extends Controller
 {
@@ -12,7 +14,11 @@ class DashboardController extends Controller
     public function index()
     {
         // mengembalikan halaman yaitu dari folder, dashboard->index.blade.php
-        return view('dashboard.index');
+
+        $title = "Dashboard Service";
+        $services = TypeOfServices::orderBy('id', 'desc')->get();
+        $customers = Customers::orderBy('id', 'desc')->get();
+        return view('dashboard.index', compact('services', 'customers', 'title'));
     }
 
     /**

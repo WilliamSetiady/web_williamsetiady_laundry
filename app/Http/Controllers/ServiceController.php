@@ -43,10 +43,7 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -60,10 +57,10 @@ class ServiceController extends Controller
         $service = TypeOfServices::find($id);
 
         //menghasilkan notfound bila tidak didapatkan datanya
-        // $service = TypeOfServices::findOrFail($id); 
+        // $service = TypeOfServices::findOrFail($id);
 
         //untuk foreign key
-        // $service = TypeOfServices::where('id', $id)->first(); 
+        // $service = TypeOfServices::where('id', $id)->first();
 
         return view('service.edit', compact('service', 'title'));
     }

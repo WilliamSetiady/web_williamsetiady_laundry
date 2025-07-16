@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h3 class="card-title">{{$title}}</h3>
                     <div class="mb-3" align='right'>
-                        <a href="{{route('service.create')}}" class="btn btn-primary">Tambah</a>
+                        <a href="{{route('service.create')}}" class="btn btn-primary">+</a>
                     </div>
                     <table class="table table-bordered">
                         <thead>
