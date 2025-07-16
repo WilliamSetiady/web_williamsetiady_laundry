@@ -14,20 +14,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'login']);
 Route::post('action-login', [LoginController::class, 'actionLogin'])->name('actionLogin');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::resource('dashboard', DashboardController::class);
 
 Route::middleware(['auth', 'Lead'])->group(function () {
     Route::resource('report', ReportController::class);
 });
 
 Route::middleware(['auth', 'Opt'])->group(function () {
-    Route::resource('dashboard', DashboardController::class);
     Route::resource('trans', TransOrderController::class);
     Route::get('print_struk/{id}', [TransOrderController::class, 'printStruk'])->name('print_struk');
     Route::get('transDetail/{id}', [TransOrderController::class, 'transDetail'])->name('trans_detail');
 });
 
 Route::middleware(['auth', 'Adm'])->group(function () {
-    Route::resource('dashboard', DashboardController::class);
+
     Route::resource('user', UserController::class);
     Route::resource('level', LevelController::class);
     Route::resource('customer', CustomerController::class);
