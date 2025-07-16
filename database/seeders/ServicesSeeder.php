@@ -16,24 +16,24 @@ class ServicesSeeder extends Seeder
         TypeOfServices::insert(
             [
                 [
-                    'service_name' => 'Cuci Kering',
+                    'service_name' => 'Cuci dan Setrika',
                     'price' => 5000,
-                    'description' => 'Layanan cuci, kering, dan setrika pakaian.'
-                ],
-                [
-                    'service_name' => 'Cuci Setrika',
-                    'price' => 7000,
                     'description' => 'Layanan cuci dan setrika pakaian.'
                 ],
                 [
+                    'service_name' => 'Cuci Saja',
+                    'price' => 4500,
+                    'description' => 'Layanan cuci pakaian tanpa setrika.'
+                ],
+                [
                     'service_name' => 'Setrika Saja',
-                    'price' => 3000,
+                    'price' => 5000,
                     'description' => 'Layanan setrika pakaian tanpa cuci.'
                 ],
                 [
-                    'service_name' => 'Dry Clean',
-                    'price' => 15000,
-                    'description' => 'Layanan dry clean untuk pakaian yang memerlukan perawatan khusus.'
+                    'service_name' => 'Laundry Besar',
+                    'price' => 7000,
+                    'description' => 'Layanan laundry untuk barang-barang besar seperti selimut, sprei, dan gorden, mantel.'
                 ],
             ]
         );

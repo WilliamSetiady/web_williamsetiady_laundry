@@ -40,7 +40,6 @@
             <!-- Left Panel: New Transaction -->
             <div class="card">
                 <h2>🛒 Transaksi Baru</h2>
-
                 <form id="transactionForm">
 
                     <div class="form-group">
@@ -128,6 +127,11 @@
                         </button>
                     </div>
                 </div>
+                <form action="{{ route('trans.index') }}">
+                <button href="" class="btn btn-danger" style="width: 100%; margin-top: 15px;" align="right">Back</button>
+            </form>
+
+
             </div>
 
             <!-- Right Panel: Transaction History -->
@@ -147,9 +151,6 @@
         <div style="text-align: center; margin-top: 20px;">
             <button class="btn btn-primary" onclick="showReports()" style="margin: 0 10px;">
                 📈 Laporan Penjualan
-            </button>
-            <button class="btn btn-warning" onclick="manageServices()" style="margin: 0 10px;">
-                ⚙️ Kelola Layanan
             </button>
             <button class="btn btn-danger" onclick="clearCart()" style="margin: 0 10px;">
                 🗑️ Bersihkan Keranjang
@@ -236,9 +237,10 @@
         }
 
         function removeFromCart(itemId) {
-            cart = cart.filter(item => item.id !== itemId);
-            updateCartDisplay();
-        }
+    console.log("Removing item with id:", itemId);
+    cart = cart.filter(item => item.id !== itemId);
+    updateCartDisplay();
+}
 
         function clearCart() {
            localStorage.removeItem('laundryTransactions'); // 🧼 Clear history
@@ -305,7 +307,7 @@
             showReceipt(transaction);
 
             // Clear form and cart
-            
+
             updateTransactionHistory();
             updateStats();
         }
@@ -683,6 +685,7 @@
             const subtotal = priceService * weight;
 
             const item = {
+                id: Date.now(),
                 id_service: serviceId,
                 service: serviceName,
                 qty: weight,
@@ -690,6 +693,7 @@
                 subtotal: subtotal,
                 notes: notes
             };
+
 
             cart.push(item);
             updateCartDisplay();

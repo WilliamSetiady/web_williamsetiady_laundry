@@ -40,7 +40,7 @@
                                     <form action="{{route('trans.destroy', $data->id)}}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger m-2" type="submit" onclick="return confirm('yakin mau hapus?')">Delete </button>
+                                        <button class="btn btn-danger m-2" type="submit" onclick="return confirm('Are you sure?')">Delete </button>
                                     </form>
                                 </td>
                             </tr>
